@@ -268,7 +268,14 @@ FROM orders
 GROUP BY category;
 ```
 
-## 9. 자주 틀리는 곳
+## 9. MySQL 8.x에서 주의할 것
+
+- GROUP BY가 엄격하다. SELECT의 컬럼은 집계 함수 안에 있거나 GROUP BY에 있어야 한다
+- 예약어는 별칭으로 못 쓴다: `rank`, `row_number`, `dense_rank`, `lag`, `lead`, `groups`. `AS rnk`처럼 바꾸거나 백틱으로 감싼다
+- `QUALIFY`가 없다. 윈도우 결과로 거르려면 CTE나 서브쿼리로 감싼 뒤 WHERE
+- 집계값을 모든 행에 붙일 때는 스칼라 서브쿼리 또는 `MAX(v) OVER ()`. 예시는 `practice-notes.md`
+
+## 10. 자주 틀리는 곳
 
 - GROUP BY에 없는 컬럼을 SELECT에 넣으면 버전·설정에 따라 오류이거나 임의의 값이 나온다
 - 그룹별 최댓값의 "행 전체"가 필요할 때 `SELECT name, MAX(price)`로 쓰면 name은 최댓값 행의 것이 아니다
