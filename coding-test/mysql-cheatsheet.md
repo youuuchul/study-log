@@ -273,6 +273,8 @@ GROUP BY category;
 - GROUP BY가 엄격하다. SELECT의 컬럼은 집계 함수 안에 있거나 GROUP BY에 있어야 한다
 - 예약어는 별칭으로 못 쓴다: `rank`, `row_number`, `dense_rank`, `lag`, `lead`, `groups`. `AS rnk`처럼 바꾸거나 백틱으로 감싼다
 - `QUALIFY`가 없다. 윈도우 결과로 거르려면 CTE나 서브쿼리로 감싼 뒤 WHERE
+- `COUNTIF`, `FILTER (WHERE ...)`가 없다. 조건부 개수는 `SUM(CASE WHEN 조건 THEN 1 ELSE 0 END)` 또는 `SUM(조건)`
+- `ROW_NUMBER()` 결과에서 더 큰 수를 빼면 BIGINT UNSIGNED 범위 오류가 난다. `CAST(ROW_NUMBER() OVER (...) AS SIGNED)`로 바꾼 뒤 계산한다
 - 집계값을 모든 행에 붙일 때는 스칼라 서브쿼리 또는 `MAX(v) OVER ()`. 예시는 `practice-notes.md`
 
 ## 10. 자주 틀리는 곳
