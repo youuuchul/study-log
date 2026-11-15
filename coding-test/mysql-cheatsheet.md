@@ -275,7 +275,7 @@ GROUP BY category;
 - `QUALIFY`가 없다. 윈도우 결과로 거르려면 CTE나 서브쿼리로 감싼 뒤 WHERE
 - `COUNTIF`, `FILTER (WHERE ...)`가 없다. 조건부 개수는 `SUM(CASE WHEN 조건 THEN 1 ELSE 0 END)` 또는 `SUM(조건)`
 - `ROW_NUMBER()` 결과에서 더 큰 수를 빼면 BIGINT UNSIGNED 범위 오류가 난다. `CAST(ROW_NUMBER() OVER (...) AS SIGNED)`로 바꾼 뒤 계산한다
-- 집계값을 모든 행에 붙일 때는 스칼라 서브쿼리 또는 `MAX(v) OVER ()`. 예시는 `practice-notes.md`
+- 집계값을 모든 행에 붙일 때는 스칼라 서브쿼리 또는 `MAX(v) OVER ()`
 
 ## 10. 자주 틀리는 곳
 
